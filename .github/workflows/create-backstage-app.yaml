@@ -23,6 +23,8 @@ jobs:
           npx @backstage/create-app
 
           # move backstage app to root
+          # copy . files too
+          shopt -s dotglob
           cp -r backstage/* ./
           rm -r backstage
 
