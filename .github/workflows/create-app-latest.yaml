@@ -6,7 +6,7 @@ on: push
 permissions:
   contents: write
 jobs:
-  report:
+  updateBackstage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,7 +19,7 @@ jobs:
       # create new backstage app
       - name: Create new app
         run: |
-          BACKSTAGE_APP_NAME=backstage
+          export BACKSTAGE_APP_NAME=backstage
           npx @backstage/create-app
       
       # heroku customizations
@@ -34,5 +34,5 @@ jobs:
           git config --global user.name 'Chap Ambrose'
           git config --global user.email 'cambrose@salesforce.com'
           git add .
-          git commit -am "Automated report"
+          git commit -am "Updated backstage app"
           git push
