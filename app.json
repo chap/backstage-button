@@ -32,5 +32,6 @@
     {
       "url": "heroku/nodejs"
     }
-  ]
+  ],
+  "logo": "https://backstage.io/logo_assets/svg/Icon_Gradient.svg"
 }

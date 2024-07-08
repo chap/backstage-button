@@ -2,7 +2,7 @@
 
 Use this button to create a new Backstage app on Heroku:
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chap/backstage-button)
 
 After the app is created, the `BASE_URL` needs to be configured:
 
