@@ -1,0 +1,32 @@
+{
+  "name": "Backstage",
+  "keywords": [
+    "backstage"
+  ],
+  "env": {
+    "BACKEND_SECRET": {
+      "description": "A secret key for verifying backend requests.",
+      "generator": "secret"
+    },
+    "BASE_URL": {
+      "description": "URL for accessing backstage.",
+      "value": "https://CHANGE-ME.herokuapp.com"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

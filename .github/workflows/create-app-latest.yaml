@@ -1,0 +1,38 @@
+name: Create App Latest
+on: push
+# on:
+#   schedule:
+#   - cron: '5 4 * * *'
+permissions:
+  contents: write
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      # delete everything except .git/ and .github/ folders
+      - name: Clean
+        run: |
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '.heroku' ! -name 'app.json' | xargs rm -rf
+      
+      # create new backstage app
+      - name: Create new app
+        run: |
+          BACKSTAGE_APP_NAME=backstage
+          npx @backstage/create-app
+      
+      # heroku customizations
+      - name: Apply heroku changes
+        run: |
+          sudo apt update
+          sudo apt install -y jq yq
+          . .heroku/backstage-on-heroku.sh
+
+      - name: Commit
+        run: |
+          git config --global user.name 'Chap Ambrose'
+          git config --global user.email 'cambrose@salesforce.com'
+          git add .
+          git commit -am "Automated report"
+          git push
