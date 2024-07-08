@@ -11,6 +11,10 @@
     "BASE_URL": {
       "description": "URL for accessing backstage. Use `heroku domains` command to find URL and update config var after creation.",
       "value": "https://CHANGE-ME.herokuapp.com"
+    },
+    "PGSSLMODE": {
+      "description": "Required config for Heroku Postgres' self-signed certificates.",
+      "value": "-no-verify"
     }
   },
   "formation": {
