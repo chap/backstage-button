@@ -21,13 +21,19 @@ jobs:
         run: |
           export BACKSTAGE_APP_NAME=backstage
           npx @backstage/create-app
+          cp -r backstage/* ./
+          rm -r backstage
+
       
       # heroku customizations
       - name: Apply heroku changes
         run: |
-          sudo apt update
-          sudo apt install -y jq
+          # jq is already installed
+          # sudo apt update
+          # sudo apt install -y jq
+
           sudo snap install yq
+          
           . .heroku/backstage-on-heroku.sh
 
       - name: Commit
