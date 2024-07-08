@@ -14,7 +14,7 @@ jobs:
       # delete everything except .git/ and .github/ folders
       - name: Clean
         run: |
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '.heroku' ! -name 'app.json' | xargs rm -rf
+          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '.heroku' ! -name 'app.json' ! -name '.gitignore' | xargs rm -rf
       
       # create new backstage app
       - name: Create new app
@@ -33,7 +33,7 @@ jobs:
           # sudo apt install -y jq
 
           sudo snap install yq
-          
+
           . .heroku/backstage-on-heroku.sh
 
       - name: Commit
