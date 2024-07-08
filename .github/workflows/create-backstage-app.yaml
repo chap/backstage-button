@@ -13,8 +13,15 @@ jobs:
       
       # delete everything except .git/ and .github/ folders
       - name: Clean
-        run: |
-          find . -mindepth 1 -maxdepth 1 ! -name '.git' ! -name '.github' ! -name '.heroku' ! -name 'app.json' ! -name '.gitignore' ! -name 'Procfile' | xargs rm -rf
+        run: >
+          find . -mindepth 1 -maxdepth 1 
+          ! -name '.git' 
+          ! -name '.github' 
+          ! -name '.heroku' 
+          ! -name 'app.json' 
+          ! -name '.gitignore' 
+          ! -name 'Procfile'
+          | xargs rm -rf
       
       # create new backstage app
       - name: Create new app
