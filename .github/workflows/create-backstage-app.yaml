@@ -21,6 +21,8 @@ jobs:
         run: |
           export BACKSTAGE_APP_NAME=backstage
           npx @backstage/create-app
+
+          # move backstage app to root
           cp -r backstage/* ./
           rm -r backstage
 
@@ -41,5 +43,5 @@ jobs:
           git config --global user.name 'Chap Ambrose'
           git config --global user.email 'cambrose@salesforce.com'
           git add .
-          git commit -am "Updated backstage app"
+          git commit -am "update backstage app"
           git push

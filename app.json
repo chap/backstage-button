@@ -9,7 +9,7 @@
       "generator": "secret"
     },
     "BASE_URL": {
-      "description": "URL for accessing backstage.",
+      "description": "URL for accessing backstage. Use `heroku domains` command to find URL and update config var after creation.",
       "value": "https://CHANGE-ME.herokuapp.com"
     }
   },

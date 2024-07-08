@@ -12,4 +12,4 @@ yq eval '.backend.database = {"client": "pg", "pluginDivisionMode": "schema", "e
 
 #
 # README.md changes
-sed -i '1s|^|[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)\n\n|' README.md
+cp .heroku/README.md README.md
