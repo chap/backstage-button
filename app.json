@@ -1,5 +1,6 @@
 {
   "name": "Backstage",
+  "description": "Bootstrap a fresh Backstage instance from backstage/create-app@latest",
   "keywords": [
     "backstage"
   ],
