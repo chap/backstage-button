@@ -40,7 +40,7 @@ jobs:
       - name: Create new app
         run: |
           export BACKSTAGE_APP_NAME=backstage
-          npx @backstage/create-app
+          npx @backstage/create-app --skip-install
 
           # move backstage app to root
           # copy . files too
@@ -104,10 +104,12 @@ jobs:
 
       - name: Commit
         run: |
-          version=$(cat "$backstage.json" | jq -r '.version')
+          version=$(cat backstage.json | jq -r '.version')
           if cmp -s "backstage.json" "backstage.old.json"; then
             echo "Version unchanged: $version"
           else
+            yarn install
+
             git config --global user.name 'Chap Ambrose'
             git config --global user.email 'cambrose@salesforce.com'
             git add .
