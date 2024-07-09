@@ -1,13 +1,14 @@
 name: Overwrite Backstage Latest
-on:
-  schedule:
-  - cron: '5 4 * * *' # daily 4:05am
+on: push
+  # schedule:
+  # - cron: '5 4 * * *' # daily 4:05am
 permissions:
   contents: write
 jobs:
   overwrite:
     runs-on: ubuntu-latest
     steps:
+
       # dont overwrite repo on forks and clones
       - name: Confirm overwrite
         if: ${{ vars.OVERWRITE_WITH_BACKSTAGE_LATEST != 'true' }}
@@ -19,7 +20,7 @@ jobs:
       # checkout repo
       - uses: actions/checkout@v3
       
-      # delete everything except .git/ and .github/ folders
+      # delete everything except git and heroku files
       - name: Clean
         run: >
           mv backstage.json backstage.old.json
@@ -35,13 +36,13 @@ jobs:
           ! -name 'backstage.old.json'
           | xargs rm -rf
       
-      # create new backstage app
+      # create new backstage app using cli
       - name: Create new app
         run: |
           export BACKSTAGE_APP_NAME=backstage
           npx @backstage/create-app --skip-install
 
-          # move backstage app to root
+          # copy backstage app to root
           # copy . files too
           shopt -s dotglob
           cp -r backstage/* ./
@@ -61,10 +62,12 @@ jobs:
           yq eval '.app.baseUrl = "${BASE_URL}"' -i app-config.production.yaml
           yq eval '.backend.baseUrl = "${BASE_URL}"' -i app-config.production.yaml
           yq eval '.backend.listen = {"port": {"$env": "PORT"}}' -i app-config.production.yaml
-          yq eval '.backend.database = {"client": "pg", "pluginDivisionMode": "schema", "ensureExists": false, "ensureSchemaExists": true, "connection": "${DATABASE_URL}"}' -i app-config.production.yaml
+          yq eval '.backend.database = {"client": "pg", "pluginDivisionMode": "schema", "ensureExists": false, "ensureSchemaExists": true, "connection": "${DATABASE_URL}", "ssl": { "rejectUnauthorized": false }}' -i app-config.production.yaml
 
           # README.md changes
           cat << EOF > README.md
+          ![backstage](https://backstage.io/logo_assets/svg/Icon_Gradient.svg)
+          ![heroku](heroku.png)
           # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
           Use this button to create a new Backstage app on Heroku:
