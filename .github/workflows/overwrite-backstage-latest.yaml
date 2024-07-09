@@ -6,16 +6,16 @@ on: push
 permissions:
   contents: write
 jobs:
-  updateBackstage:
+  overwrite:
     runs-on: ubuntu-latest
     steps:
       # dont overwrite repo on forks and clones
       - name: Fail
-        if: ${{ env.OVERWRITE_WITH_BACKSTAGE_LATEST != 'true' }}
+        if: ${{ vars.OVERWRITE_WITH_BACKSTAGE_LATEST != 'true' }}
         run: |
           # echo "Warning: This action will overwrite the repo with the latest Backstage version.
           # You probably don't want this and should delete this file: .github/workflows/overwrite-backstage-latest.yaml"
-          echo "env: ${{ env.OVERWRITE_WITH_BACKSTAGE_LATEST }}"
+          echo "vars: ${{ vars.OVERWRITE_WITH_BACKSTAGE_LATEST }}"
           exit 1
 
       # checkout repo
