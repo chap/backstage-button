@@ -1,3 +1,5 @@
+<img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> &nbsp; &nbsp; &nbsp; <img src="https://github.com/chap/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
+
 # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
 Use this button to create a new Backstage app on Heroku:
