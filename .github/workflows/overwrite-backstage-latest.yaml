@@ -104,9 +104,11 @@ jobs:
 
       - name: Commit
         run: |
+          # don't commit if not a new version
           version=$(cat backstage.json | jq -r '.version')
           if cmp -s "backstage.json" "backstage.old.json"; then
             echo "Version unchanged: $version"
+
           else
             yarn install
 
