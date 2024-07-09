@@ -14,7 +14,7 @@
     },
     "PGSSLMODE": {
       "description": "Required config for Heroku Postgres' self-signed certificates.",
-      "value": "-no-verify"
+      "value": "no-verify"
     }
   },
   "formation": {
