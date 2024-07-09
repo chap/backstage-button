@@ -67,8 +67,7 @@ jobs:
 
           # README.md changes
           cat << EOF > README.md
-          <img src="https://github.com/chap/backstage-button/blob/main/heroku.png" alt="backstage" width="200"/>
-          <img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="200"/>
+          <img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> <img src="https://github.com/chap/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
 
           # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
