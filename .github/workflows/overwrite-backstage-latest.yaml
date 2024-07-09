@@ -1,8 +1,8 @@
 name: Overwrite Backstage Latest
-on: push
-  # schedule:
+on:
+  schedule:
   # daily 4:05am
-  # - cron: '5 4 * * *'
+  - cron: '5 4 * * *'
 permissions:
   contents: write
 jobs:
@@ -108,8 +108,9 @@ jobs:
 
       - name: Commit
         run: |
-          # don't commit if not a new version
           version=$(cat backstage.json | jq -r '.version')
+          
+          # don't commit if not a new version
           if cmp -s "backstage.json" "backstage.old.json"; then
             echo "Version unchanged: $version"
 
