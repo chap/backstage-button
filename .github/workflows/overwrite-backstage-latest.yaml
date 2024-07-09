@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # dont overwrite repo on forks and clones
-      - name: Warn
+      - name: Fail
+        if: ${{ env.OVERWRITE_WITH_BACKSTAGE_LATEST != 'true' }}
         run: |
-          if [ "$OVERWRITE_WITH_BACKSTAGE_LATEST" != "true" ]; then
-            echo "Warning: This action will overwrite the repo with the latest Backstage version. You probably don't want this and just can delete this file: .github/workflows/overwrite-backstage-latest.yaml"
-            exit 1
-          fi
+          echo "Warning: This action will overwrite the repo with the latest Backstage version.
+          You probably don't want this and should delete this file: .github/workflows/overwrite-backstage-latest.yaml"
+          exit 1
 
       # checkout repo
       - uses: actions/checkout@v3
@@ -23,6 +23,9 @@ jobs:
       # delete everything except .git/ and .github/ folders
       - name: Clean
         run: >
+          mv backstage.json backstage.old.json
+
+
           find . -mindepth 1 -maxdepth 1 
           ! -name '.git' 
           ! -name '.github' 
@@ -30,6 +33,7 @@ jobs:
           ! -name 'app.json' 
           ! -name '.gitignore' 
           ! -name 'Procfile'
+          ! -name 'backstage.old.json'
           | xargs rm -rf
       
       # create new backstage app
@@ -100,8 +104,13 @@ jobs:
 
       - name: Commit
         run: |
-          git config --global user.name 'Chap Ambrose'
-          git config --global user.email 'cambrose@salesforce.com'
-          git add .
-          git commit -am "update backstage app"
-          git push
+          version=$(cat "$backstage.json" | jq -r '.version')
+          if cmp -s "backstage.json" "backstage.old.json"; then
+            echo "Version unchanged: $version"
+          else
+            git config --global user.name 'Chap Ambrose'
+            git config --global user.email 'cambrose@salesforce.com'
+            git add .
+            git commit -am "update backstage app version: $version"
+            git push
+          fi
