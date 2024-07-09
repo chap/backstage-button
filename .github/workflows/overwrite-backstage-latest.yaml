@@ -34,6 +34,7 @@ jobs:
           ! -name '.gitignore' 
           ! -name 'Procfile'
           ! -name 'backstage.old.json'
+          ! -name 'heroku.png'
           | xargs rm -rf
       
       # create new backstage app using cli
@@ -66,8 +67,9 @@ jobs:
 
           # README.md changes
           cat << EOF > README.md
-          ![backstage](https://backstage.io/logo_assets/svg/Icon_Gradient.svg)
-          ![heroku](heroku.png)
+          <img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="200"/>
+          <img src="./heroku.png" alt="backstage" width="200"/>
+
           # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
           Use this button to create a new Backstage app on Heroku:
