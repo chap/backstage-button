@@ -30,9 +30,7 @@ jobs:
           find . -mindepth 1 -maxdepth 1 
           ! -name '.git' 
           ! -name '.github' 
-          ! -name '.heroku' 
           ! -name 'app.json' 
-          ! -name '.gitignore' 
           ! -name 'Procfile'
           ! -name 'backstage.old.json'
           ! -name 'heroku.png'
@@ -44,7 +42,7 @@ jobs:
           export BACKSTAGE_APP_NAME=backstage
           npx @backstage/create-app --skip-install
 
-          # copy backstage app to root
+          # copy new backstage app files to root
           # copy . files too
           shopt -s dotglob
           cp -r backstage/* ./
@@ -52,21 +50,21 @@ jobs:
 
       
       # heroku customizations
-      - name: Apply heroku changes
+      - name: Apply heroku tweaks
         run: |
           sudo snap install yq
           
-          # package.json changes
+          # add build commd and cache config to package.json
           jq '.scripts.build = "yarn build:backend --config ../../app-config.yaml --config ../../app-config.production.yaml"' package.json > tmp.json && mv tmp.json package.json
           jq '.cacheDirectories = ["node_modules", "packages/app/node_modules", "packages/backend/node_modules"]' package.json > tmp.json && mv tmp.json package.json
 
-          # app-config.production.yaml changes
+          # add heroku postgres and baseUrl config var to app-config.production.yaml
           yq eval '.app.baseUrl = "${BASE_URL}"' -i app-config.production.yaml
           yq eval '.backend.baseUrl = "${BASE_URL}"' -i app-config.production.yaml
           yq eval '.backend.listen = {"port": {"$env": "PORT"}}' -i app-config.production.yaml
           yq eval '.backend.database = {"client": "pg", "pluginDivisionMode": "schema", "ensureExists": false, "ensureSchemaExists": true, "connection": "${DATABASE_URL}" }' -i app-config.production.yaml
 
-          # README.md changes
+          # getting started in README.md
           cat << EOF > README.md
           <img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> &nbsp; &nbsp; &nbsp; <img src="https://github.com/chap/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
 
@@ -109,7 +107,7 @@ jobs:
       - name: Commit
         run: |
           version=$(cat backstage.json | jq -r '.version')
-          
+
           # don't commit if not a new version
           if cmp -s "backstage.json" "backstage.old.json"; then
             echo "Version unchanged: $version"
