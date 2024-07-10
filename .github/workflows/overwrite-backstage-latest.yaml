@@ -70,7 +70,7 @@ jobs:
 
           # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
-          Use this button to bootstrap a fresh Backstage app on Heroku from [@backstage/create-app](https://www.npmjs.com/package/@backstage/create-app):
+          Use this button to bootstrap a fresh Backstage app on Heroku from [backstage/create-app@latest](https://www.npmjs.com/package/@backstage/create-app):
 
           [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chap/backstage-button)
 
