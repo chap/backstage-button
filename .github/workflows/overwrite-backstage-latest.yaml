@@ -1,8 +1,8 @@
 name: Overwrite Backstage Latest
-on:
-  schedule:
+on: push
+  # schedule:
   # daily 4:05am
-  - cron: '*/5 * * * *'
+  # - cron: '5 4 * * *'
 permissions:
   contents: write
 jobs:
