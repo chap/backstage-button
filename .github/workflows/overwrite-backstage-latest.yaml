@@ -2,7 +2,7 @@ name: Overwrite Backstage Latest
 on:
   schedule:
   # daily 4:05am
-  - cron: '10 21 * * *'
+  - cron: '16 21 * * *'
 permissions:
   contents: write
 jobs:
