@@ -130,10 +130,7 @@ jobs:
             git push origin update-$version
           fi
 
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
-        with:
-          destination_branch: update-${{ env.BACKSTAGE_VERSION }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          pr_label: "feature, automated pr"
-          pr_title: "Update Backstage ${{ env.BACKSTAGE_VERSION }}"
+      - name: create pull request
+        run: gh pr create -B main -H update-${{ env.BACKSTAGE_VERSION }} --title 'Upgrade Backstage update-${{ env.BACKSTAGE_VERSION }}' --body 'Created by Github action'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
