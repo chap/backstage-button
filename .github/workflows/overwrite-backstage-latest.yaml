@@ -35,6 +35,10 @@ jobs:
           ! -name 'Procfile'
           ! -name 'backstage.old.json'
           ! -name 'heroku.png'
+          ! -name 'CODEOWNERS'
+          ! -name 'CODE_OF_CONDUCT.md'
+          ! -name 'CONTRIBUTING.md'
+          ! -name 'LICENSE.txt'
           | xargs rm -rf
       
       # create new backstage app using cli
