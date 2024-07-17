@@ -66,13 +66,13 @@ jobs:
 
           # getting started in README.md
           cat << EOF > README.md
-          <img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; <img src="https://github.com/chap/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
+          <img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; <img src="https://github.com/heroku/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
 
           # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
           Use this button to bootstrap a fresh Backstage app on Heroku from [backstage/create-app@latest](https://www.npmjs.com/package/@backstage/create-app):
 
-          [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chap/backstage-button)
+          [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/backstage-button)
 
           After the app is created, the \`BASE_URL\` needs to be configured:
 
@@ -86,7 +86,7 @@ jobs:
           To make changes, clone this repo and push to your Heroku app:
 
           \`\`\`sh
-          \$ git clone https://github.com/chap/backstage-button.git <your-app>/
+          \$ git clone https://github.com/heroku/backstage-button.git <your-app>/
           \$ cd <your-app>/
           \$ heroku remote:add -a <your-app>
           \$ git push heroku main
@@ -107,6 +107,7 @@ jobs:
       - name: Commit
         run: |
           version=$(cat backstage.json | jq -r '.version')
+          echo "BACKSTAGE_VERSION=$version" >> $GITHUB_ENV
 
           # don't commit if not a new version
           if cmp -s "backstage.json" "backstage.old.json"; then
@@ -118,7 +119,16 @@ jobs:
 
             git config --global user.name 'Github Action'
             git config --global user.email 'no-reply@github.com'
+            git checkout -b update-$version
             git add .
             git commit -am "update backstage app version: $version"
-            git push
+            git push origin update-$version
           fi
+
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: update--${{ env.BACKSTAGE_VERSION }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          pr_label: "feature, automated pr"
+          pr_title: "Update Backstage ${{ env.BACKSTAGE_VERSION }}"
