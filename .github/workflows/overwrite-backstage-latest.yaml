@@ -128,7 +128,7 @@ jobs:
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
-          destination_branch: update--${{ env.BACKSTAGE_VERSION }}
+          destination_branch: update-${{ env.BACKSTAGE_VERSION }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           pr_label: "feature, automated pr"
           pr_title: "Update Backstage ${{ env.BACKSTAGE_VERSION }}"
