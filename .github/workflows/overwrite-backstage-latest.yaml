@@ -7,7 +7,7 @@ permissions:
   contents: write
 jobs:
   overwrite:
-    runs-on: ubuntu-latest
+    runs-on: pub-hk-ubuntu-24.04-ip
     steps:
 
       # dont overwrite repo on forks and clones
