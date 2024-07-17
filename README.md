@@ -1,10 +1,10 @@
-<img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; <img src="https://github.com/chap/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
+<img src="https://backstage.io/logo_assets/svg/Icon_Gradient.svg" alt="backstage" width="100"/> &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; <img src="https://github.com/heroku/backstage-button/blob/main/heroku.png" alt="backstage" width="100"/>
 
 # [Backstage](https://backstage.io) on [Heroku](https://heroku.com)
 
 Use this button to bootstrap a fresh Backstage app on Heroku from [backstage/create-app@latest](https://www.npmjs.com/package/@backstage/create-app):
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chap/backstage-button)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/backstage-button)
 
 After the app is created, the `BASE_URL` needs to be configured:
 
@@ -18,7 +18,7 @@ $ heroku config:set BASE_URL=https://<your-app-123>.herokuapp.com -a <your-app>
 To make changes, clone this repo and push to your Heroku app:
 
 ```sh
-$ git clone https://github.com/chap/backstage-button.git <your-app>/
+$ git clone https://github.com/heroku/backstage-button.git <your-app>/
 $ cd <your-app>/
 $ heroku remote:add -a <your-app>
 $ git push heroku main
