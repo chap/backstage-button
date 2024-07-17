@@ -5,6 +5,7 @@ on: push
   # - cron: '5 4 * * *'
 permissions:
   contents: write
+  pull-requests: write
 jobs:
   overwrite:
     runs-on: pub-hk-ubuntu-24.04-ip
