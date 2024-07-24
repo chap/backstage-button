@@ -4,7 +4,7 @@
 
 Use this button to bootstrap a fresh Backstage app on Heroku from [backstage/create-app@latest](https://www.npmjs.com/package/@backstage/create-app):
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/backstage-button)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 After the app is created, the `BASE_URL` needs to be configured:
 
