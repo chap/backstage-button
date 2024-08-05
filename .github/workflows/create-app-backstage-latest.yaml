@@ -1,8 +1,8 @@
 name: Overwrite Backstage Latest
-on: push
-  # schedule:
+on:
+  schedule:
   # daily 4:05am
-  # - cron: '5 4 * * *'
+  - cron: '5 4 * * *'
 permissions:
   contents: write
   pull-requests: write
@@ -16,7 +16,7 @@ jobs:
         if: ${{ vars.OVERWRITE_WITH_BACKSTAGE_LATEST != 'true' }}
         run: |
           echo "Warning: This action will overwrite the repo with the latest Backstage version.
-          You probably don't want this and should delete this file: .github/workflows/overwrite-backstage-latest.yaml"
+          You probably don't want this and should delete this file: .github/workflows/create-app-backstage-latest.yaml"
           exit 1
 
       # checkout repo
@@ -59,7 +59,7 @@ jobs:
         run: |
           sudo snap install yq
           
-          # add build commd and cache config to package.json
+          # add build command and cache config to package.json
           jq '.scripts.build = "yarn build:backend --config ../../app-config.yaml --config ../../app-config.production.yaml"' package.json > tmp.json && mv tmp.json package.json
           jq '.cacheDirectories = ["node_modules", "packages/app/node_modules", "packages/backend/node_modules"]' package.json > tmp.json && mv tmp.json package.json
 
