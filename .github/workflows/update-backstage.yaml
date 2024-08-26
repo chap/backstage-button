@@ -1,8 +1,8 @@
-name: Overwrite Backstage Latest
-on: push
-  # schedule:
+name: Update Backstage
+on:
+  schedule:
   # daily 4:05am
-  # - cron: '5 4 * * *'
+  - cron: '5 4 * * *'
 permissions:
   contents: write
   pull-requests: write
@@ -10,15 +10,6 @@ jobs:
   overwrite:
     runs-on: pub-hk-ubuntu-24.04-ip
     steps:
-
-      # dont overwrite repo on forks and clones
-      - name: Confirm overwrite
-        if: ${{ vars.OVERWRITE_WITH_BACKSTAGE_LATEST != 'true' }}
-        run: |
-          echo "Warning: This action will overwrite the repo with the latest Backstage version.
-          You probably don't want this and should delete this file: .github/workflows/overwrite-backstage-latest.yaml"
-          exit 1
-
       # checkout repo
       - uses: actions/checkout@v4
       
@@ -26,7 +17,6 @@ jobs:
       - name: Clean
         run: >
           mv backstage.json backstage.old.json
-
 
           find . -mindepth 1 -maxdepth 1 
           ! -name '.git' 
@@ -53,7 +43,6 @@ jobs:
           cp -r backstage/* ./
           rm -r backstage
 
-      
       # heroku customizations
       - name: Apply heroku tweaks
         run: |
@@ -103,13 +92,10 @@ jobs:
           \$ git push origin main
           \`\`\`
 
-          The included GitHub action runs once a day and overwrites the file from the latest Backstage release. You probably don\'t want that:
-          \`\`\`sh
-          \$ rm .github/workflows/overwrite-backstage-latest.yaml
-          \`\`\`
+          The included GitHub action runs once a day and creates a PR from the latest Backstage release.
           EOF
 
-      - name: Commit
+      - name: commit
         run: |
           version=$(cat backstage.json | jq -r '.version')
           echo "BACKSTAGE_VERSION=$version" >> $GITHUB_ENV

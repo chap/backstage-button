@@ -30,7 +30,4 @@ $ git remote set-url origin https://github.com/<your-app>.git
 $ git push origin main
 ```
 
-The included GitHub action runs once a day and overwrites the file from the latest Backstage release. You probably don\'t want that:
-```sh
-$ rm .github/workflows/overwrite-backstage-latest.yaml
-```
+The included GitHub action runs once a day and creates a PR from the latest Backstage release.
