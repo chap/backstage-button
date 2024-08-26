@@ -48,7 +48,7 @@ jobs:
         run: |
           sudo snap install yq
           
-          # add build commd and cache config to package.json
+          # add build command and cache config to package.json
           jq '.scripts.build = "yarn build:backend --config ../../app-config.yaml --config ../../app-config.production.yaml"' package.json > tmp.json && mv tmp.json package.json
           jq '.cacheDirectories = ["node_modules", "packages/app/node_modules", "packages/backend/node_modules"]' package.json > tmp.json && mv tmp.json package.json
 
@@ -66,7 +66,7 @@ jobs:
 
           Use this button to bootstrap a fresh Backstage app on Heroku from [backstage/create-app@latest](https://www.npmjs.com/package/@backstage/create-app):
 
-          [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/heroku/backstage-button)
+          [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?template=https://github.com/heroku/backstage-button)
 
           After the app is created, the \`BASE_URL\` needs to be configured:
 
